@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
 
     constructor(props) {
         super(props)
@@ -24,12 +24,13 @@ class LoginPage extends Component {
         event.preventDefault();
         console.log(this.state);
     }
+
     render() {
         return(
             <div className="col-4 mx-auto card">
                 <div className="card-body">
                     <form>
-                        <h3>Login Form</h3>
+                        <h3>Register Form</h3>
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
                             <input type="text" className="form-control is-valid" name="username" onChange={this.onInputChange}></input>
@@ -40,16 +41,22 @@ class LoginPage extends Component {
                             <input type="password" className="form-control is-invalid" name="password" onChange={this.onInputChange}></input>
                             <div className="invalid-feedback">รหัสผ่านสั้นเกินไป</div>
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="example-date-input">Birth Date</label>
+                            <div>
+                                <input className="form-control" type="date"></input>
+                            </div>
+                        </div>
                         <button type="button" className="btn btn-success">Login</button>
                     </form>
                 </div>
                 <div>
-                    <span>สมัครสมาชิก</span>
-                    <Link to="/register">คลิก</Link>
+                    <span>ลงชื่อเข้าใช้</span>
+                    <Link to="/login">คลิก</Link>
                 </div>
             </div>
         )
     }
 }
 
-export default LoginPage;
+export default RegisterPage;

@@ -6,8 +6,8 @@ import Home from './Home';
 import Post from './Post';
 import Profile from './Profile';
 import Error404 from './Error404';
-import LoginForm from './LoginForm';
-
+import RegisterPage from './RegisterForm';
+import LoginPage from './LoginForm';
 
 const App = () => {
 
@@ -19,12 +19,14 @@ const App = () => {
           <li><NavLink to="/post" activeClassName="active-menu-navbar">Post</NavLink></li>
           <li><NavLink to="/profile" activeClassName="active-menu-navbar">Profile</NavLink></li>
           <li><NavLink to="/login" activeClassName="active-menu-navbar">Login</NavLink></li>
+          <li><NavLink to="/register" activeClassName="active-menu-navbar">Register</NavLink></li>
         </ul>
         <Switch>
           <Route path="/" exact={true} component={Home} />
           <Route path="/post" component={Post} />
           <Route path="/profile" component={Profile} />
-          <Route path="/login" component={LoginForm} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Route component={Error404}/>
         </Switch>
         
