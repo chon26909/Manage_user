@@ -22,7 +22,6 @@ const getAllUser = async (req, res, next) => {
         const user = await db.collection('users');
         const usersdata = await user.get();
         const userArray = [];
-        let userObject = {};
         if(usersdata.empty)
         {
             res.status(404).send("No User in record")
@@ -37,15 +36,10 @@ const getAllUser = async (req, res, next) => {
                     doc.data().firstname,
                     doc.data().lastname
                 )
-                console.log(user)
+                // console.log(user)
                 userArray.push(user);
-                // userObject.assign(user);
-                // userObject.id = doc.id,
-                // userObject.firstname = doc.data().firstname,
-                // userObject.lastname = doc.data().lastname
             });
-            // console.log(userObject.pretty());
-            
+            console.log(userArray);
             res.send(userArray);
         }
     } catch (error) {
