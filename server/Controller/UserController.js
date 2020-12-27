@@ -47,7 +47,19 @@ const getAllUser = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) => {
+    try{
+        const id = req.params.id;
+        await db.collection('users').doc(id).delete();
+        res.send('Delete success');
+    }
+    catch (error){
+        res.status(400).send(error.massage);
+    }
+}
+
 module.exports = {
     addUser,
-    getAllUser
+    getAllUser,
+    deleteUser
 }

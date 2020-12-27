@@ -22,17 +22,13 @@ const Home = (props) => {
 
     function fetchUserData() {
         Axios.get("http://localhost:3001/api/user").then((Response) => {
-            setUserList(Response.data);
-            
+            setUserList(Response.data);    
         })  
     }
 
     useEffect(() => {
         fetchUserData();
     }, [] );
-
-
-
 
     //Add user to database 
     const [Firstname, setFirstname] = useState()
@@ -60,6 +56,18 @@ const Home = (props) => {
     }
 
 
+    //delete User 
+    const deleteUser = (id) => {
+        Axios.delete("http://localhost:3001/api/user/"+id).then((res) => {
+            setUserList(
+                userList.filter((val) => {
+                    return val.id !== id;
+                })
+            )
+        })
+    }
+        
+
     return (
         <div className="App container">
             <form className="mb-5 card col-6 p-5">
@@ -83,8 +91,9 @@ const Home = (props) => {
                             <div className="card-header">
                                 <strong>No: {key}</strong>
                                 <span className="float-right">
-                                    <span>&nbsp;&nbsp;แก้ไข&nbsp;&nbsp;</span>
-                                    <span>&nbsp;&nbsp;ลบ</span>
+                                    <span className="btn-edit-user">แก้ไข</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span className="btn-delete-user" onClick={() => deleteUser(val.id)}>ลบ</span>
                                 </span> 
                                 
                             </div>

@@ -24,3 +24,27 @@ body
   font-weight: bold;
 
 }
+
+.btn-delete-user
+{
+  cursor: pointer;
+  color: rgb(109, 109, 109);
+}
+.btn-delete-user:hover
+{
+  font-weight: bold;
+  text-decoration: underline;
+  color: rgb(0, 0, 0);
+}
+
+.btn-edit-user
+{
+  cursor: pointer;
+  color: rgb(109, 109, 109);
+}
+.btn-edit-user:hover
+{
+  font-weight: bold;
+  text-decoration: underline;
+  color: rgb(0, 0, 0);
+}
