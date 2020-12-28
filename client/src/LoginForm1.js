@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import SignInWithGoogle from './SignIn';
+import { auth } from './firebase/firebase';
 
-class LoginPage extends Component {
+class LoginPagebyLilly extends Component {
 
     constructor(props) {
         super(props)
     
         this.state = {
-            username: '',
-            password: ''
+            email: '',
+            password: '',
+            currentUser: null,
+            message: ''
         }
     }
 
@@ -18,22 +20,43 @@ class LoginPage extends Component {
         this.setState({
             [event.target.name]:event.target.value
         })
-        console.log(this.state);
     }
 
     onLoginSubmit = (event) => {
         event.preventDefault();
         console.log(this.state);
+    
+        auth
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(response => {
+            this.setState({
+                currentUser: response.user
+            })
+        })
+        .catch(error => {
+            this.setState({
+                message: error.message
+            })
+        })
     }
     render() {
+        if (this.state.currentUser){
+            return (
+                <div>
+                  <p>Hello {this.state.currentUser.email}</p>
+                  <button onClick={this.logout}>Logout</button>
+                </div>
+              )
+        }
+
         return(
             <div className="col-4 mx-auto card">
                 <div className="card-body">
                     <form>
                         <h3>Login Form</h3>
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" className="form-control is-valid" name="username" onChange={this.onInputChange}></input>
+                            <label htmlFor="username">Email</label>
+                            <input type="email" className="form-control is-valid" name="email" onChange={this.onInputChange}></input>
                             <div className="valid-feedback">พบชื่อผู้ใช้</div>
                         </div>
                         <div className="form-group">
@@ -41,11 +64,8 @@ class LoginPage extends Component {
                             <input type="password" className="form-control is-invalid" name="password" onChange={this.onInputChange}></input>
                             <div className="invalid-feedback">รหัสผ่านสั้นเกินไป</div>
                         </div>
-                        <button type="button" className="btn btn-success">Login</button>
+                        <button type="button" className="btn btn-success" onClick={this.onLoginSubmit}>Login</button>
                     </form>
-                </div>
-                <div>
-                    <SignInWithGoogle />
                 </div>
                 <div>
                     <span>สมัครสมาชิก</span>
@@ -56,4 +76,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+export default LoginPagebyLilly;

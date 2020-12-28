@@ -16,8 +16,6 @@ const Home = (props) => {
         });
     }
 
-
-
     const [userList, setUserList] = useState([]);
 
     function fetchUserData() {
@@ -45,6 +43,9 @@ const Home = (props) => {
         setLastname(event.target.value);
         console.log("Object " + JSON.stringify(Firstname) + "   " + JSON.stringify(Lastname));
     }
+
+
+    
     function addUser() {
         Axios.post("http://localhost:3001/api/user", {
             firstname : Firstname,
@@ -66,7 +67,11 @@ const Home = (props) => {
             )
         })
     }
-        
+    
+    const updateUser = (id) => {
+        const dom = document.querySelector("div#n8epoV9Ar65DgzEMYxpB p.data-input");
+        const dom1 = dom.getElementsByClassName(".data-input");
+    }
 
     return (
         <div className="App container">
@@ -86,21 +91,21 @@ const Home = (props) => {
             </form>
             <div className="row">
                 {userList.map((val, key) => (
-                    <div key={key} className="col-4 mb-4">
+                    <div key={key} id={val.id} className="col-4 mb-4">
                         <div className="card">
                             <div className="card-header">
                                 <strong>No: {key}</strong>
                                 <span className="float-right">
-                                    <span className="btn-edit-user">แก้ไข</span>
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span className="btn-edit-user" onClick={() => updateUser(val.id)}>แก้ไข</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                     <span className="btn-delete-user" onClick={() => deleteUser(val.id)}>ลบ</span>
                                 </span> 
                                 
                             </div>
                             <div className="card-body">
                                 <p>ID: {val.id}  </p>
-                                <p>Firstname : {val.firstname}</p>
-                                <p>Lastname : {val.lastname}</p>
+                                <p className="data-input">Firstname : {val.firstname}</p>
+                                <p className="data-input">Lastname : {val.lastname}</p>
                             </div>
 
                         </div>
