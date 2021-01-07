@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 
-const Home = (props) => {
-    const [dataState, setDataState] = useState({ count: 0 });
-
-    const plus = () => {
-        setDataState({
-            count: dataState.count + 1
-        });
-    }
-
-    const minnus = () => {
-        setDataState({
-            count: dataState.count - 1
-        });
-    }
+const Posts = (props) => {
 
     const [userList, setUserList] = useState([]);
 
     function fetchUserData() {
         Axios.get("http://localhost:3001/api/user").then((Response) => {
-            setUserList(Response.data);    
-        })  
+            setUserList(Response.data);
+        })
     }
 
     useEffect(() => {
         fetchUserData();
-    }, [] );
+    }, []);
 
     //Add user to database 
     const [Firstname, setFirstname] = useState()
@@ -36,7 +23,7 @@ const Home = (props) => {
         // console.log(event.target.value)
         setFirstname(event.target.value)
         console.log("Object " + JSON.stringify(Firstname) + "   " + JSON.stringify(Lastname));
-    
+
     }
     function newLastname(event) {
         // console.log(event.target.value);
@@ -45,11 +32,11 @@ const Home = (props) => {
     }
 
 
-    
+
     function addUser() {
         Axios.post("http://localhost:3001/api/user", {
-            firstname : Firstname,
-            lastname : Lastname
+            firstname: Firstname,
+            lastname: Lastname
         }).then(res => {
             // fetchUserData();
             console.log(res)
@@ -59,7 +46,7 @@ const Home = (props) => {
 
     //delete User 
     const deleteUser = (id) => {
-        Axios.delete("http://localhost:3001/api/user/"+id).then((res) => {
+        Axios.delete("http://localhost:3001/api/user/" + id).then((res) => {
             setUserList(
                 userList.filter((val) => {
                     return val.id !== id;
@@ -67,14 +54,49 @@ const Home = (props) => {
             )
         })
     }
-    
-    const updateUser = (id) => {
-        const dom = document.querySelector("div#n8epoV9Ar65DgzEMYxpB p.data-input");
-        const dom1 = dom.getElementsByClassName(".data-input");
+
+    // const updateUser = (id) => {
+    //     const dom = document.querySelector("div#n8epoV9Ar65DgzEMYxpB p.data-input");
+    //     const dom1 = dom.getElementsByClassName(".data-input");
+    // }
+
+    const EditItemHandler = (editKey, data) => {
+        const users = [...userList];
+        const editingIndex = users.findIndex((item) => {
+            return item
+        })
     }
 
+    const onEditUser = (editKey, data) => {
+        // const editData = {
+        //     firstname: userList.
+        // }
+        console.log(editKey);
+        console.log(data)
+    }
+
+
+
+    // const editFrom = (
+    //     <div className="row">
+    //         <div className="">
+    //             <input 
+    //                 type="text" 
+    //                 name="updateName"
+    //                 className="form-control col-6"
+    //                 defaultValue={data.firstname}></input>
+    //                 <button 
+    //                     onClick={onCancelEdit.bind()}
+    //                     className="btn btn-primary col-3">ยกเลิก</button>
+    //                 <button 
+    //                     onClick={conConfirmEdit.bin()}
+    //                     className="btn btn-success col-3">ยืนยัน</button>
+    //         </div>
+    //     </div>
+    // )
+
     return (
-        <div className="App container">
+        <div className="App">
             <form className="mb-5 card col-6 p-5">
                 <h3>Add User</h3>
                 <div>
@@ -96,11 +118,11 @@ const Home = (props) => {
                             <div className="card-header">
                                 <strong>No: {key}</strong>
                                 <span className="float-right">
-                                    <span className="btn-edit-user" onClick={() => updateUser(val.id)}>แก้ไข</span>
+                                    <span className="btn-edit-user" onClick={onEditUser.bind(this)}>แก้ไข</span>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                     <span className="btn-delete-user" onClick={() => deleteUser(val.id)}>ลบ</span>
-                                </span> 
-                                
+                                </span>
+
                             </div>
                             <div className="card-body">
                                 <p>ID: {val.id}  </p>
@@ -109,27 +131,12 @@ const Home = (props) => {
                             </div>
 
                         </div>
-                        
+
                     </div>
                 ))}
             </div>
-
-            <h1>Product</h1>
-            <div className="card m-5">
-                <div className="card-header">
-                    <h3>Bossza in bottle</h3>
-                </div>
-                <div className="card-body">
-                    <h1>{dataState.count}</h1>
-                </div>
-                <div className="card-footer">
-                    <span><button className="btn btn-success" onClick={plus}>เพิ่ม</button></span>
-                    <span><button className="btn btn-danger" onClick={minnus}>ลด</button></span>
-                </div>
-            </div>
-            
         </div>
     )
 }
 
-export default Home;
+export default Posts;

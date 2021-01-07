@@ -1,35 +1,37 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter, Link, NavLink, Route, Switch } from 'react-router-dom';
-import Home from './Home';
-import Post from './Post';
-import Profile from './Profile';
-import Error404 from './Error404';
-import RegisterPage from './RegisterForm';
-import LoginPage from './LoginForm';
-import Navbar from './navbar';
-import Login from './LoginForm1';
+import Home from './Components/Home';
+import Product from './Components/Product';
+import Error404 from './Components/Error404';
+import RegisterPage from './Components/RegisterForm';
+import LoginPage from './Components/LoginForm';
+import Navbar from './Components/navbar';
+// import Login from './LoginForm1';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducer/authReducer';
 
 const App = () => {
-
+  const store = createStore(reducer)
   return (
-    <BrowserRouter>
-      <div>
-        
+    <Provider store={store}>
+      <BrowserRouter>
+
         <Navbar />
-        {/* <Login /> */}
+
         <Switch>
           <Route path="/" exact={true} component={Home} />
-          <Route path="/post" component={Post} />
-          <Route path="/profile" component={Profile} />
+          <Route path="/product" component={Product} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
-          <Route component={Error404}/>
+          <Route component={Error404} />
         </Switch>
-        
-      </div>
-    </BrowserRouter>
+
+      </BrowserRouter>
+    </Provider>
+
   );
 };
 
