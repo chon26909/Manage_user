@@ -11,7 +11,7 @@ import Navbar from './Components/navbar';
 // import Login from './LoginForm1';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducer from './reducer/authReducer';
+import reducer from './store/rootReducer';
 
 const App = () => {
   const store = createStore(reducer)

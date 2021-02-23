@@ -49,15 +49,16 @@ const Navbar = () => {
                         <li className="nav-item" id="2"><NavLink className="nav-link" to="/product" activeClassName="active-menu-navbar">Product</NavLink></li>
                        
                     </ul>
-                    {!username ? (
+                    {!username ? 
                         <ul className="navbar-nav">
                             <li>{username}</li>
                             <li className="nav-item" id="4"><NavLink className="nav-link" to="/login" activeClassName="active-menu-navbar navbar-right">Login</NavLink></li>
                             <li className="nav-item" id="5"><NavLink className="nav-link" to="/register" activeClassName="active-menu-navbar navbar-right">Register</NavLink></li>
                         </ul>
-                    ) : (
-                        <button onClick={signOutHandler}>Logout</button>
-                    )}
+                     : 
+                        <span><button onClick={signOutHandler}>{username.uid}</button></span>
+                    }
+                        
                 </div>
             </nav>
         </div>

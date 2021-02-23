@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
             console.log(state)
             return state;
 
-        case 'SET_LOGOUT' :
+        case 'SET_LOGOUT' : 
             state = null;
             console.log(state)
             return state
